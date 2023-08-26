@@ -1,16 +1,12 @@
-# %%
 from pydub import AudioSegment
 
 
-# %%
-def mp3_to_wav(mp3_path, wav_path):
-    sound = AudioSegment.from_mp3(mp3_path)
-    sound.export(wav_path, format="wav")
-# %%
+def wav_converter(mp3_path, wav_path, channels=1):
 
-# Provide paths for input MP3 and output WAV files
-mp3_file_path = "../Speech_to_Text/Audio/long_audio.mp3"
-wav_file_path = "../Speech_to_Text/Audio/output.wav"
-# %%
-mp3_to_wav(mp3_file_path, wav_file_path,
-# %%
+    try:
+        sound = AudioSegment.from_file(mp3_file_path, format="mp3")
+    except:
+        sound = AudioSegment.from_file(mp3_file_path, format="mp4")
+    finally:
+        sound = sound.set_channels(channels)
+        sound.export(wav_path, format="wav")
